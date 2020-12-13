@@ -38,4 +38,35 @@ function moveDown () {
 	}
 }
 
+// função de tiro
+function fireLaser() {
+	let laser = creatLaserElement();
+	playArea.appendChild(laser);
+	moveLaser(laser);
+}
+function creatLaserElement() {
+	let xPosition = parseInt(window.getComputedStyle(yourShip).getPropertyValue('left'));
+	let yPosition = parseInt(window.getComputedStyle(yourShip).getPropertyValue('top'));
+	let newLaser = document.createElement('img');
+	newLaser.src = 'img/shoot.png';
+	newLaser.classList.add('laser');
+	newLaser.style.left = `${xPosition}px`;
+	newLaser.style.top = `${yPosition - 10}px`;
+	return newLaser;
+}
+
+function moveLaser (laser) {
+	let laserInterval = setInterval(() => {
+	    let xPosition = parseInt(laser.style.left);
+		
+		if(xPosition === 404) {
+			laser.remove();
+		} else { 
+		    laser.style.left = `${xPosition + 8}px`;
+		}
+	}, 10);
+}
+	
+	
+	
 window.addEventListener('keydown', flyShip);
